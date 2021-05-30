@@ -1,1 +1,1 @@
-holochain,holofuel,holohost,decentralized
+HOLOCHAIN,HOLOFUEL,HOLOHOST,DECENTRALIZED
