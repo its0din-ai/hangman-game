@@ -1,8 +1,12 @@
+#![allow(unused)]
 extern crate rand;
 use rand::Rng;
-
 use std::fs::File;
 use std::io::prelude::*;
+use std::io;
+use voca_rs::*;
+
+const ALLOWED_ATTEMPTS: u8 = 5;
 
 struct Letter {
     character: char,
@@ -10,10 +14,38 @@ struct Letter {
 }
 
 fn main() {
+    let mut turns_left = ALLOWED_ATTEMPTS;
     let keyword = keyword();
-    let letters = create_letters(&keyword);
+    let mut letters = create_letters(&keyword);
+    let up = case::upper_case("abcs");
 
-    display_progress(&letters);
+    println!("the case is {}", up);
+    
+    loop {
+        
+        println!("You Have {} turns left!", turns_left);
+        display_progress(&letters);
+
+        println!("Please Enter a Letter to Guess: ");
+        let user_char = read_user_input_character();
+
+        if user_char == '*'{
+            break;
+        }
+
+        let mut at_least_one_revelaed = false;
+        for letter in letters.iter_mut(){
+            if letter.character == user_char{
+                letter.revealed = true;
+                at_least_one_revelaed = true;
+            }
+        }
+
+        if !at_least_one_revelaed {
+            turns_left -= 1;
+        }
+    }
+
     println!("[DEBUG] The selected keyword above is {}!", keyword);
 }
 
@@ -52,4 +84,20 @@ fn display_progress(letters: &Vec<Letter>){
         display_string.push(' ');
     }
     println!("{}", display_string);
+}
+
+fn read_user_input_character() -> char {
+    let mut user_input = String::new().to_uppercase();
+
+    match io::stdin().read_line(&mut user_input){
+        Ok(_) =>{
+            match user_input.to_uppercase().chars().next(){
+                Some(c) => { return c; }
+                None => { return'*'; }
+            }
+        }
+        Err(_) => { return '*'; }
+    }
+
+
 }

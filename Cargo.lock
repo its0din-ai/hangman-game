@@ -11,6 +11,7 @@ name = "hangman-game"
 version = "0.1.0"
 dependencies = [
  "rand 0.3.23",
+ "voca_rs",
 ]
 
 [[package]]
@@ -64,6 +65,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "678054eb77286b51581ba43620cc911abf02758c91f93f479767aed0f90458b2"
 dependencies = [
  "rand_core 0.3.1",
+]
+
+[[package]]
+name = "unicode-segmentation"
+version = "1.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bb0d2e7be6ae3a5fa87eed5fb451aff96f2573d2694942e40543ae0bbe19c796"
+
+[[package]]
+name = "voca_rs"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3c0469a25b164815f722283fee2c6d0fce15b8c89b0be53e325193520ff5ee51"
+dependencies = [
+ "unicode-segmentation",
 ]
 
 [[package]]
