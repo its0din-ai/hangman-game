@@ -17,6 +17,8 @@ fn main() {
     let mut turns_left = ALLOWED_ATTEMPTS;
     let keyword = keyword();
     let mut letters = create_letters(&keyword);
+
+    println!("Coded in RUST by encrypt0r");
     
     loop {
         
