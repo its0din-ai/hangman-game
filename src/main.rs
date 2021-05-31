@@ -17,9 +17,6 @@ fn main() {
     let mut turns_left = ALLOWED_ATTEMPTS;
     let keyword = keyword();
     let mut letters = create_letters(&keyword);
-    let up = case::upper_case("abcs");
-
-    println!("the case is {}", up);
     
     loop {
         
@@ -87,7 +84,7 @@ fn display_progress(letters: &Vec<Letter>){
 }
 
 fn read_user_input_character() -> char {
-    let mut user_input = String::new().to_uppercase();
+    let mut user_input = String::new();
 
     match io::stdin().read_line(&mut user_input){
         Ok(_) =>{
