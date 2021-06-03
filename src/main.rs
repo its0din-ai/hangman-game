@@ -5,6 +5,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::io;
 use voca_rs::*;
+use ansi_term::Style;
 
 const ALLOWED_ATTEMPTS: u8 = 5;
 
@@ -26,7 +27,9 @@ fn main() {
     
     loop {
         
-        println!("You Have {} turns left!", turns_left);
+        println!("\n{}{}{}", Style::new().bold().paint("You Have "), turns_left, Style::new().bold().paint(" Attempts Left!"));
+        println!("{}", Style::new().bold().paint("Give Up by Entering Asterick (*) Character"));
+        println!("");
         display_progress(&letters);
 
         println!("Please Enter a Letter to Guess: ");
@@ -51,18 +54,19 @@ fn main() {
         match check_progress(turns_left, &letters) {
             GameProgress::InProgress => continue,
             GameProgress::Won => { 
-                println!("Correct! The Selected Word is {}", keyword);
+                println!("\nCorrect! the Selected Word is {}", keyword);
                 break;
             }
             GameProgress::Lose => { 
-                println!("You Lose");
+                println!("\nYou Lose! the Right Word is {}", keyword);
                 break;
             }
         }
     }
 
-    println!("Thanks for Guessing.");
-    println!("Coded by encrypt0r using RUST");
+    println!("Why Giving Up? The Selected Word is {}. Keep Trying", keyword);
+    println!("{}", Style::new().bold().paint("Thanks for Guessing."));
+    println!("{}", Style::new().bold().paint("Coded by encrypt0r using RUST"));
 }
 
 fn keyword() -> String {

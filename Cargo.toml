@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 rand = "0.3"
 voca_rs = "0.3"
+ansi_term = "0.12.1"
