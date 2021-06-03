@@ -36,6 +36,7 @@ fn main() {
         let user_char = read_user_input_character();
 
         if user_char == '*'{
+            println!("Why Giving Up? The Selected Word is {}. Keep Trying", keyword);
             break;
         }
 
@@ -64,7 +65,6 @@ fn main() {
         }
     }
 
-    println!("Why Giving Up? The Selected Word is {}. Keep Trying", keyword);
     println!("{}", Style::new().bold().paint("Thanks for Guessing."));
     println!("{}", Style::new().bold().paint("Coded by encrypt0r using RUST"));
 }
