@@ -13,12 +13,16 @@ struct Letter {
     revealed: bool
 }
 
+enum GameProgress{
+    InProgress,
+    Won,
+    Lose
+}
+
 fn main() {
     let mut turns_left = ALLOWED_ATTEMPTS;
     let keyword = keyword();
     let mut letters = create_letters(&keyword);
-
-    println!("Coded in RUST by encrypt0r");
     
     loop {
         
@@ -43,9 +47,22 @@ fn main() {
         if !at_least_one_revelaed {
             turns_left -= 1;
         }
+
+        match check_progress(turns_left, &letters) {
+            GameProgress::InProgress => continue,
+            GameProgress::Won => { 
+                println!("Correct! The Selected Word is {}", keyword);
+                break;
+            }
+            GameProgress::Lose => { 
+                println!("You Lose");
+                break;
+            }
+        }
     }
 
-    println!("[DEBUG] The selected keyword above is {}!", keyword);
+    println!("Thanks for Guessing.");
+    println!("Coded by encrypt0r using RUST");
 }
 
 fn keyword() -> String {
@@ -98,5 +115,24 @@ fn read_user_input_character() -> char {
         Err(_) => { return '*'; }
     }
 
+
+}
+
+fn check_progress(turns_left: u8, letters: &Vec<Letter>) -> GameProgress {
+    let mut all_revealed = true;
+    for letter in letters{
+        if !letter.revealed{
+            all_revealed = false;
+        }
+    }
+
+    if all_revealed {
+        return GameProgress::Won;
+    }
+
+    if turns_left > 0 {
+        return GameProgress::InProgress;
+    }
+    return GameProgress::Lose;
 
 }
